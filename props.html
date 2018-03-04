@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<input type="text" v-model="parentMsg" />
+			<child :message="parentMsg"></child>
+			<son :message="parentMsg"></son>
+		</div>
+	</body>
+</html>
+<script src="vuejs/vue.js"></script>
+<script type="text/javascript">
+	let granSon = {
+		data(){
+			return {a:1,granson:''}
+		},
+		props:['childMsg'],// 接收父组件传入过来的childMsg属性的值
+		computed:{
+			fn2(){
+				this.a++;
+				return {
+					granson:this.childMsg.trim().toLowerCase(), // 声明变量来处理childMsg的值
+				}
+			}
+		},
+		template:'<div>granson:{{fn2.granson}}:{{a}}</div>',
+	};
+	
+	let child = {
+		props:['message'],
+		computed:{ // 重新声明一个变量(fn.childMsg)来接收父组件传过来的 message
+			fn(){
+				return {childMsg:this.message.toUpperCase()}
+			}
+		},
+		template:'<div>child:{{fn.childMsg}}<gran-son :childMsg="fn.childMsg"></gran-son></div>', // 向子组件granson传入childMsg属性
+		components:{ //引用了granSon组件
+			granSon
+		}
+	};
+	
+	let son = {
+		props:['message'],
+		template:'<div>son:{{message}}</div>',
+		
+	};
+	
+	let app = new Vue({
+		el:'#app',
+		data:{
+			parentMsg:'',
+		},
+		components:{
+			child,son
+		}
+	})
+</script>

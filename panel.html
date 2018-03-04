@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<link rel="stylesheet" type="text/css" href="bootstrap3.37/bootstrap3.37.css" />
+	<script src="vuejs/vue.js"></script>
+	<body>
+		<div id="app">
+			<panel></panel>
+			<panel type="warning"></panel>
+			<panel type="primary"  @child-say="fn">
+				<h2 slot="title">这是一个大标题</h2>
+				<div slot="content">
+					<p>第一行内容</p>
+					<p>第二行内容</p>
+					<p>第三行内容</p>
+				</div>
+			</panel>
+		</div>
+		<template id="pan">
+			<div class="panel" :class="[color]">
+				<div class="panel-heading" ref="head">
+					<slot name="title"></slot>
+				</div>
+				<div class="panel-body">
+					<slot name="content"></slot>
+				</div>
+				<div class="panel-footer">
+					<!--当没有传入footer,默认匿名-->
+					<slot>匿名</slot>
+					<button @click="say">弹出标题</button>
+				</div>
+			</div>
+		</template>
+	</body>
+	<script type="text/javascript">
+		let panel = {
+			template:'#pan',
+//			data(){
+//				return {color:'panel-'+this.type}
+//			},	
+			methods:{
+				say(){
+					// innerHTML输出包括标签,innerText输出纯文本
+					this.$emit('child-say',this.$refs.head.innerText)
+				}
+			},
+			computed:{ // data(){}都可以
+				color(){
+					return 'panel-'+this.type
+				}
+			},
+			props:{
+				type:{
+					// 验证props属性,
+					type:[String], // 字符串类型
+					default:'default' // 假如没有传入的值,这就是默认值
+				}
+			}
+		}
+		let app = new Vue({
+			el:'#app',
+			components:{
+				panel
+			},
+			methods:{
+				fn(titl){
+					alert(titl)
+				}
+			}
+		})
+	</script>
+</html>

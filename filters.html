@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<div id="app1">{{'hello' | my}} || {{'hi' | my2}}</div>
+		<div id="app2">{{'hello' | my}}</div>
+	</body>
+
+</html>
+<script src="vuejs/vue.js"></script>
+<script type="text/javascript">
+	// 给原型添加过滤器,只能一个一个添加,所以是filter('名字',函数)
+	Vue.filter('my', (input) => { // 全局过滤器
+		return input + ' man'
+	})
+	new Vue({
+		el: '#app1',
+		filters:{
+			my2(input){ // 默认参数, | 前面内容,必须的,后面可以接 param1,param2...
+				return  input + ' woman'
+			}
+		}
+	});
+	new Vue({
+		el: '#app2'
+	});
+</script>

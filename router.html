@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style type="text/css">
+		.active{color:red;}
+	</style>
+	<body>
+		<div id="app">
+			<router-link :to={path:'/home'} tag='button'>首页</router-link>
+			<!--to='路径', :to={对象}-->
+			<router-link to='/list' tag='button'>列表页</router-link>
+			<router-view></router-view>
+		</div>
+	</body>
+</html>
+<script src="vuejs/vue.js"></script>
+<script src="vuejs/vue-router3.0.1.js"></script>
+<script>
+	// 前后端分离,后端只负责提供接口,像跳转的都是前端自己处理
+	// hash模式, #开发时使用hash模式, 不会导致404, hash模式不支持seo
+	//                 上线时使用 h5的history.pushState
+	
+	let home = {
+		template:`<div>首页<button @click="toList">去列表</button></div>`,
+		methods:{
+			toList(){
+				// h5的路径跳转方法 .pushState("空","空","路径")
+				// replace() 路由替换,将当前的历史记录替换
+				// push() 强制跳转路径
+				this.$router.push('/list')
+			}
+		}
+	}
+	let list = {
+		template:`<div>列表<button @click="back">返回</button></div>`,
+		methods:{
+			back(){
+				this.$router.go(-1)
+			}
+		}
+	}
+	
+	let routes = [ // 映射表,是数组
+		{path:'',component:home}, // 默认路由,一般路径用 空 
+		{path:'/home',component:home},
+		{path:'/list',component:list},
+//		{path:'*',component:home}, // 路径不变,只切换组件,一般 * 匹配 用redirect
+		{path:'/*',redirect:'/home'}
+		
+	]
+	
+	let router = new VueRouter({
+//		mode:'history', //开发阶段还是用hash模式,刷新不会404
+		linkActiveClass:'active', // 自定义触发样式
+		routes
+	})
+	let app = new Vue({
+		el:'#app',
+		router, //每个组件都有一个$router属性(有r的存的都是方法),还有一个$route属性(没r的存的都是属性)
+		mounted(){
+			this.$nextTick(()=>{
+				console.log(this.$router);
+				console.log(this.$route)
+			})
+		}
+	})
+</script>

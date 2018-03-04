@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<link rel="stylesheet" type="text/css" href="animate.css/animate.css" />
+
+	<body>
+		<div id="app">
+			<button @click="show">按钮1</button>
+			<button @click="hide">按钮2</button>
+			<nav-head :type="flag"></nav-head>
+		</div>
+		</div>
+	</body>
+
+</html>
+<script src="vuejs/vue.js"></script>
+<script src="vuejs/vue-router3.0.1.js"></script>
+<script type="text/javascript">
+	let navHead = {
+		template: `<div>
+							<transition-group  
+								enter-active-class="animated fadeIn"
+							    leave-active-class="animated fadeOut">
+									<span   v-if="type" v-for="(item,index) in arr" :key="index">导航栏{{item}}</span>
+							</transition-group>
+						</div>`,
+		props: ['type'],
+		data() {
+			return {
+				arr: [1, 2, 3, 4]
+			}
+		}
+	};
+
+	let app = new Vue({
+		el: '#app',
+		components: {
+			navHead
+		},
+		data: {
+			flag: true
+		},
+		methods: {
+			show() {
+				this.flag = true
+			},
+			hide() {
+				this.flag = false
+			}
+		}
+	})
+</script>

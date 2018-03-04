@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<brother1></brother1>
+			<brother2></brother2>
+		</div>
+	</body>
+</html>
+<script src="vuejs/vue.js"></script>
+<script type="text/javascript">
+	let eventBus = new Vue; // 不需要参数,只是发布订阅用的
+	let brother1 = {
+		template:'<div>{{color}}<button @click="change">变绿</button></div>',
+		data(){
+			return {color:'绿色',old:'绿色'}
+		},
+		created(){
+			eventBus.$on('changeRed',(val)=>{ // 页面一加载,brother1就长了一个耳朵
+				this.color = val
+			})
+		},
+		methods:{
+			change(){
+				eventBus.$emit('changeGreen',this.old)
+			}
+		},
+	};
+	let brother2 = {
+		template:'<div>{{color}}<button @click="change">变红</button></div>',
+		data(){
+			return {color:'红色',old:'红色'}
+		},
+		methods:{
+			change(){
+				eventBus.$emit('changeRed',this.old)
+			}
+		},
+		created(){
+			eventBus.$on('changeGreen',(val)=>{ // 页面一加载,brother2就长了一个耳朵
+				this.color = val
+			})
+		}
+	}
+	let app = new Vue({
+		el:'#app',
+		components:{
+			brother1,brother2
+		}
+	})
+</script>

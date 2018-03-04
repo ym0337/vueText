@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+		.a{color:red;}
+		.b{background: black;}
+		.c{font-size: 30px;},
+	</style>
+	<body>
+		<div id="app">
+			<!--class,:class是可以共存的,可以是对象或者数组格式-->
+			<!--1.对象,第一个是key,可以加引号,可以不加,第二个是value,不加引号是变量,加引号是字符串-->
+			<div :class="{'a':true,b:true,c:false}">今天天气不错</div>
+			<div :style="{'background':dd}">今天天气不错</div>
+			<!--2.数组,不加引号就是变量,加引号是字符串-->
+			<div :class="[class1,class2]">今天天气不错</div>
+			<div :style="[style1]">今天天气不错</div>
+		</div>
+	</body>
+</html>
+<script src="vuejs/vue.js"></script>
+<script>
+	new Vue({
+		el:'#app',
+		data:{
+			class1:'a',
+			class2:'b',
+			dd:'green',
+			style1:{background:'pink'}
+		}
+	})
+</script>

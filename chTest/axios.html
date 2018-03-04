@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			
+		</div>
+	</body>
+</html>
+<script src="../vuejs/vue.js"></script>
+<!-- axios不依赖vuejs-->
+<script src="../vuejs/axios.js"></script>
+<script type="text/javascript">
+	let app = new Vue({
+		el:'#app',
+		data:{
+			weather:[]
+		},
+		// 专门发送ajax请求的函数,在数据初始化之后会自动调用,this指向vue实例,是钩子函数
+		created(){
+			axios.get('http://www.sojson.com/open/api/weather/json.shtml?city=%E5%8C%97%E4%BA%AC').then(res=>{  //success
+				//假如是回调函数,这里的this是指向windows,所以这里用箭头函数,this指向上一个,就是vm实例
+				console.log(res)
+			},err=>{ //error
+				console.log(err)
+			})
+		}
+	})
+</script>

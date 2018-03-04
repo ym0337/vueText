@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<!--不传参数的情况下,省略()-->
+			<div @mousedown="fn1">点击我</div>
+			<!--传入参数的情况下,先传入 $event 内置的变量-->
+			<div @mousedown="fn2($event,2)">点击我</div>
+		</div>
+		
+		<div id="vm">
+			<h1>todoList</h1>
+			<!--修饰符 @keyup.13(键盘码) 或者keyup.enter,keyup.ctrl.enter(ctrl+enter)都可以-->
+			<input type="text" @keyup.13="add" v-model="val"/>
+			<ul>
+				<li v-for="(a,index) in arr" >{{a}}<button @click="remove(index)">删除</button></li>
+			</ul>
+		</div>
+	</body>
+</html>
+<script src="vuejs/vue.js"></script>
+<script type="text/javascript">
+	// data,methods最后渲染是直接挂载在vue实例中,所以不能重名
+	let app = new Vue({
+		el:'#app',
+		data:{
+			a:1
+		},
+		methods:{
+			// 这里不能用箭头函数,this会指向另一个(windows)
+			fn1:function(){console.log(event)},
+			// es6语法,可以不写key 
+			fn2(event,b){console.log(b)}
+		}
+	});
+	
+	let vm = new Vue({
+		el:'#vm',
+		data:{
+			arr:[],
+			val:''
+		},
+		methods:{
+			add(){
+				this.arr.unshift(this.val);
+				this.val = ''
+			},
+			remove(i){
+				// 判断索引,false返回,true停止
+				this.arr = this.arr.filter((item,index)=>index!==i)
+			}
+		}
+	});
+</script>

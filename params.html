@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<router-link to='/article/1/a'>文章1</router-link>
+			<!--当使用:to={}带params转跳时,注意这里用的是name属性,并不是path属性(带参数没效果)-->
+			<router-link :to={name:'Article',params:{a:2,b:'b'}}>文章2</router-link>
+			<router-link to='/article/3/c'>文章3</router-link>
+			<router-view></router-view>
+		</div>
+	</body>
+</html>
+<script src="vuejs/vue.js"></script>
+<script src="vuejs/vue-router3.0.1.js"></script>
+<script type="text/javascript">
+	// 因为this可以省略,所以这里直接是 $route(属性).params($route属性).a(key)可以得到路径参数
+	let article = {
+		template:`<div>第{{$route.params.a}}篇文章</div>`,
+//		beforeUpdate(){
+//			alert('update')
+//		},
+		// 一般不用beforeUpdate(只要有任何内容改变都会触发,并不是我们想要的结果),而是用watch来监控路由路径参数变化,
+		watch:{ // watch是一个对象, 路径参数发生变化,监控参数的变化发送ajax
+			$route(){ 
+				alert('ajax')
+			}
+		}	
+	};
+	
+	// 路径参数, /:x,可以是任意,但是必须要有,会自动跟to=''匹配出一个对象,
+	// 如: <router-link to='/article/1/a'>文章1</router-link>,===>{a:1,b:'a'}
+	let routes = [{path:'/article/:a/:b',component:article,name:'Article'}];
+	
+	let router = new VueRouter({
+		routes
+	})
+	
+	let app = new Vue({
+		el:'#app',
+		router
+	})
+</script>

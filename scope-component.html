@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<!--两种标签写法一样,只不过第一种可以在中间写东西, 第二种写法会有时候有bug,建议用第一种全写-->
+			<!--3.使用组件-->
+			<component1/></component1>
+			<component2/>
+		</div>
+	</body>
+</html>
+<script src="vuejs/vue.js"></script>
+<script type="text/javascript">
+	// 局部组件使用三部曲. 1.创建组件,2.注册组件,3.使用组件
+	// 组件是相对独立的,不能直接跨作用域,实例也是一个组件,组件同样拥有生命周期函数
+	let obj = {school:'喵喵喵?'} // 如果组件公用数据,一个组件数据改变,会导致同时更新()
+	// 子组件不能直接使用父组件的数据
+	// 组件理论上可以无限嵌套
+	
+	// 1.创建组件
+	let component1 = {
+		// template用 模板字符串 ``或者单引号,双引号都可以
+		template:`<div @click='school="呵呵呵"'>组件1 {{school}}</div>` ,
+		data(){
+			return obj
+		}
+	};
+	let component2 = {
+		template:'<div>组件2 {{school}}</div>',
+		data(){
+			return obj
+		}
+	};
+	
+	let app = new Vue({
+		el:'#app',
+//		只有vm实例的data是对象,组件的是函数
+		data:{
+			
+		},
+		components:{
+//			2.注册组件
+			component1,
+			component2
+		}
+	})
+</script>

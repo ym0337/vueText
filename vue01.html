@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<!--<div>{{msg}}</div> 这种方法加载时不美观,所以用下面的方法替代-->
+			<div v-text="msg" ></div>
+			<input type="text" v-model="msg"/>
+			<!--只渲染一次-->
+			<div v-once>{{p}}</div> 
+			<!--能解析html标签,一定是可以信任的html,防止恶意攻击-->
+			<div v-html="p"></div>
+			<div>{{a.school}}</div>
+			<div>{{a.name}}</div>
+		</div>
+	</body>
+</html>
+<script src="vuejs/vue.js"></script>
+<script type="text/javascript">
+	// vue会循环data中的数据(数据劫持),依次增加getter和setter
+	let app = new Vue({
+		el:'#app',
+		data:{
+			msg:'hello',
+			p:'<p>world</p>',
+			// 推荐一开始定义好一个属性,初始化,赋值 ' ' ,
+			a:{school:''}
+		}
+	});
+	app.$set(app.a,'name','apple'); // $set(data,key,val)这方法可以给对象添加响应式的数据变化
+	app.a = {school:"2",age:8};  // 替换原对象
+</script>

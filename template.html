@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<!--templage标签是vue提供的,没有实际意义的,只用来包裹节点的标签,不会被渲染出来,不能用于v-show -->
+			<template v-if="flag">
+				<div>hello</div>
+				<div>hello</div>
+				<div>hello</div>
+			</template>
+			<div v-else>hahha</div>
+			<input type="button" value="点击切换" @click="flag=!flag"/>
+			<br />
+			<!--默认情况下,切换dom时,相同的结果会复用.例如下面的input,果然不想复用,就要给改标签添加key来区分他们-->
+			<template v-if="cut" >
+				<label>注册</label>
+				<input type="text" key="1"/>
+			</template>
+			<template v-else>
+				<label>登录</label>
+				<input type="text" key="2"/>
+			</template>
+			<input type="button" value="提交" @click="cut=!cut"/>
+		</div>
+	</body>
+</html>
+<script src="vuejs/vue.js"></script>
+<script>
+	new Vue({
+		el:'#app',
+		data:{
+			flag:true,
+			cut:true
+		},
+		
+	})
+</script>

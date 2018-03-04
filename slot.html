@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<!--有传递内容,slot 默认内容被替换掉-->
+			<!--这里的内容均属于父级当前模板,只有 属性名 属于组件-->
+			<modal m='3'>
+				<!--只要没有slot对应的name属性,都会分配到default slot中合并-->
+				<a href="javascript:void(0)">链接1</a>
+				<span slot='content' @click='fn'>确认</span>
+				<h1 slot='title'>是否删除</h1>
+				<a href="javascript:void(0)">链接2</a>
+			</modal>
+			<!--没有传递内容,显示 slot 默认内容-->
+			<modal></modal>
+		</div>
+		<template id='tep'>
+			<!--slot标签可以放置一些默认内容,如果有传递的内容,就会被替换掉-->
+			<div>
+				<slot name='title'>默认标题</slot>
+				<slot name='content'>默认内容</slot>
+				<!--slot 不写name 默认default-->
+				<slot name='default'>默认模态框</slot>
+			</div>
+		</template>
+	</body>
+</html>
+<script src="vuejs/vue.js"></script>
+<script type="text/javascript">
+	let modal = {
+		template:'#tep'
+	}
+	let app = new Vue({
+		el:'#app',
+		components:{
+			modal
+		},
+		methods:{
+			fn(){
+				alert(1)
+			}
+		}
+	})
+	
+</script>

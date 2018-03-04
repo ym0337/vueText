@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			
+		</div>
+	</body>
+</html>
+<script src="vuejs/vue.js"></script>
+<script type="text/javascript">
+//	生命周期:beforeCreate   created
+//			   beforeMount    mounted
+//			   beforeUpdate   updated
+//			  beforeDestroy 	destroyd
+	let app = new Vue({ //vue实例化的过程会调用很多钩子函数
+//		el:'#app',
+		data:{
+			a:1
+		},
+		beforeCreate(){ //一般不用
+//			debugger;
+		},
+		created(){ // 获取ajax,初始化操作
+			
+		},
+		beforeMount(){ //必须要有挂着点才行能走下去,不然就直接死亡,可以是el:'#app'或者vm.	$mount('#app')
+//			alert(1)
+		},
+		template:'<div>{{a+1}}<span>{{a}}</span></div>', //只能有一个根标签,可以嵌套标签,用来替换所挂载的元素.
+		mounted(){ //真实dom渲染完成,可以操作dom
+			
+		},
+		beforeUpdate(){ //一般用watch代替
+			alert('更新前')
+		},
+		updated(){ //一般用watch代替
+			alert('更新后')
+		},
+		beforeDestroy(){ //清除定时器,事件绑定;只是移除监听器事件,不移除methods,不销毁属性,不会自动执行,需要调用 vm.$destroy()方法
+			alert('销毁前')
+		},
+		destroyed(){
+			alert('更新后')
+		},
+		
+});
+app.$mount('#app'); //挂载
+app.$destroy(); // 销毁,只是移除监听器跟事件,不移除methods,不销毁属性
+</script>

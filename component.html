@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<div id="app">
+			<!-- 渲染的时候,标签字母全部小写 -->
+			<my-handsome></my-handsome>
+		</div>
+	</body>
+
+</html>
+<script src="vuejs/vue.js"></script>
+<script>
+	// 全局组件,组件名中间不能用大写(第一个字母可以大写),多个单词只能用 - 连接
+	// html中用 - 连接,js中用 驼峰写法也可以
+	Vue.component('myHandsome', {
+		template: '<div>{{msg}}</div>',
+		data(){ //组件中的数据必须是函数类型,返回一个实例作为组件数据
+			return {
+				msg:'hello world'
+			}
+		}
+	});
+
+	let app = new Vue({
+		el: '#app',
+
+	})
+</script>

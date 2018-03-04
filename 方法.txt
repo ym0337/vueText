@@ -1,0 +1,81 @@
+数组的变异(括号中的能改变原数组)
+操作数组的方法:
+(pop push unshift shift splice reverse sort) index indexOf lastIndexof concat slice
+
+forEach filter map(映射) some erver reduce (includes find es6新增的)
+
+filter 不改变原数组,返回新数组
+
+let arr = [1,2,3].map(function(item){   //映射,不改变原数组, ``es6的模板字符串,遇到变量用 ${变量} 表示
+	return `<li>${item}</li>`
+})
+// '<li>1</li>','<li>2</li>','<li>3</li>'
+
+let arr2 = [1,2,3,4,55,555]
+arr2.includes(5) //false
+
+arr2.find(function(item,index){   // 返回true时,表示找到了,然后停止查找, false时,返回undefined
+	return item.toString().indexOf(5)
+})
+// 55
+
+ some 找到true后停止,返回true, 找不到返回false
+ every 找到false后停止,返回false
+ 
+ reduce 收敛  4个参数,返回叠加后的结果,原数组不变, 回调函数返回结果
+ [1,2,3,4,5].reduce(function(pre,next,index,item){
+ 	console.log(arguments)  
+ 	return 100;
+ })
+ 第一次,pre返回数组第一项,next返回第二项;
+ 第二次,pre返回return值,next返回第三项;
+ 第三次,pre返回return值,next返回第四项;
+ ......
+let sum = [1,2,3,4,5].reduce(function(pre,next,index,item){
+ 	return pre+next
+ }) // 返回数组的总和(用于求和)
+ 
+<input type="text">
+ let obj = {};
+ let temp = {}
+ object.defineProperty(obj,'name',{
+ 	configurable : true, // 是否可以配置,true表示可以(删除),false表示不可以
+ 	writable : false, // 是否能重新赋值
+ 	enumerable : false, // 是否可枚举
+ 	value : 1 , // name属性的值
+ 	get:function(){ // 取obj的name值的时候触发
+ 	 	return temp['name']
+ 	},
+ 	set:function(val){ // 给obj赋值的时候触发
+ 		// 注意:这里不能写成 obj['name'] = val; 会触发死循环
+ 		temp['name'] = val; // 改变temp['name'] 的值
+ 		input.value = val; // 将赋值给输入框
+ 	}
+ });
+ input.value = obj.name; //页面加载时会调用get方法
+ input.addEventListener('input',function(){ //等待输入变化
+ 	obj.name = input.value; // 当值变化时会调用 set方法
+ })
+ 
+ delete obj.name  //不能删除obj.name属性
+ for (let key in obj){
+ 	console.log(key)  //没有输出,因为不能被枚举
+ }
+
+事件修饰符
+  @事件.stop 防止冒泡,停止事件传播,事件不会传播,无论向下还是向上阻止
+  @事件.capture 捕获
+  @事件.prevent 阻止默认行为,例如a标签的href的跳转行为,可以阻止,只触发事件,不出发标签的默认行为
+  @事件.once 只触发一次
+  @事件.self  判断事件源绑定事件e.srcElement&&e.target, 只触发自己
+	
+
+
+
+
+
+
+
+
+
+ws证书: http://idea.iteblog.com/key.php

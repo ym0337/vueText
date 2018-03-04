@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<p>{{name}}</p>
+			<comp1></comp1>
+		</div>
+	</body>
+</html>
+<script src="vuejs/vue.js"></script>
+<script type="text/javascript">
+	var app = new Vue({
+		el:'#app',
+		data:{
+			name:'hello'
+		},
+		components:{
+			comp1:{
+				template:'<p>hello world</p>'
+			}
+		}
+	})
+</script>

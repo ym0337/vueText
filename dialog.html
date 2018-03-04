@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		
+		.mask {
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.3);
+			position: fixed;
+			top: 0;
+			left: 0;
+		}
+		
+		.dialog {
+			width: 400px;
+			height: 250px;
+			background: #FFFFFF;
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+	</style>
+
+	<body>
+		<div id="app">
+			<button @click='fn'>弹</button>
+			<!--show为true时是显示,false时隐藏, @close对应是关闭按钮点击时触发的函数-->
+			<mydialog :show="isShow" @close='fn'></mydialog>
+			<!--<div class="mask">
+				<div class="dialog">
+					<button>close</button>
+				</div>
+			</div>-->
+		</div>
+	</body>
+
+</html>
+<template id='dialog'>
+	<div>
+		<transition name='drog'>
+			<div class="mask" v-if='show'>
+				<div class="dialog">
+					<button @click="closeMyself">close</button>
+				</div>
+			</div>
+		</transition>
+	</div>
+</template>
+<script src="vuejs/vue.js"></script>
+<script type="text/javascript">
+	let mydialog = { // html 有一个原生的dialog标签,所以命名不能重复
+		props: ['show'],
+		template: '#dialog',
+		methods: {
+			closeMyself() {
+				this.$emit('close')
+			}
+		}
+	}
+	let app = new Vue({
+		el: '#app',
+		data: {
+			isShow: 'true'
+		},
+		methods: {
+			fn() {
+				this.isShow = !this.isShow
+			}
+		},
+		components: {
+			mydialog
+		}
+	})
+</script>
