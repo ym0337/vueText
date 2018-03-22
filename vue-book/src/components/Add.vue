@@ -38,6 +38,7 @@ export default {
   },
   methods:{
     async add(){
+      console.log(this.book)
       await addBook(this.book);
       this.$router.push('./list');
     }

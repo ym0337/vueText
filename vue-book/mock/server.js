@@ -25,11 +25,11 @@ function write(data,cb){ //data是对象
 
 http.createServer((req,res)=>{
     // node 跨域头设置,项目上线的时候,由于是资源都是同域,所以要删掉
-    /*res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type,Content-Length, Authorization, Accept,X-Requested-With");
     res.setHeader("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
     res.setHeader("X-Powered-By",' 3.2.1')
-    if(req.method=="OPTIONS") return res.end(); // 让options请求快速返回 */
+    if(req.method=="OPTIONS") return res.end(); // 让options请求快速返回 
 
     let {pathname,query} = url.parse(req.url,true);/*加true把query转成对象 */
     if(pathname === '/sliders'){
@@ -131,8 +131,17 @@ http.createServer((req,res)=>{
         return
     };
 
+    if(pathname === '/collect'){
+        res.setHeader('Content-Type','application/json;charset=utf8');
+        read(function(books){
+           let collect  = books.filter((item)=>item.bookCol===true);
+           res.end(JSON.stringify(collect));
+       });
+       return
+    }
+
     // 读取一个路径
-    fs.stat('.'+pathname,function(err,stats){
+    /*fs.stat('.'+pathname,function(err,stats){
         if(err){
             // res.statusCode = 404;
             // res.end('NOT FOUND')
@@ -147,7 +156,7 @@ http.createServer((req,res)=>{
             }
         }
     })
-
+*/
 }).listen(3000,"localhost",function(){
 
     console.log("开始监听...")});

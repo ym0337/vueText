@@ -18,7 +18,9 @@ export default {
       swiperOption: {
         pagination: {
           el: ".swiper-pagination"
-        }
+        },
+        autoplay:true,
+        setWrapperSize:true
       }
     };
   }

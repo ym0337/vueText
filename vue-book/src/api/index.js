@@ -1,6 +1,6 @@
 import axios from 'axios';
 // 增加默认的请求路径, 项目上线的时候,由于是同域资源,所以可以删掉
-// axios.defaults.baseURL = 'http://localhost:3000';
+axios.defaults.baseURL = 'http://localhost:3000';
 
 // 拦截器,这里把res处理一下,res => res.data
 axios.interceptors.response.use((res)=>{
@@ -34,6 +34,7 @@ export let findOneBook = (id)=>{
 
 // 修改图书
 export let updateBook = (id,data)=>{
+    console.log(data)
     // 两个参数,参数1:路径,参数2:修改的内容(对象)
     return axios.put(`/book?id=${id}`,data);
 };
@@ -52,4 +53,14 @@ export let getAll = ()=>{
 // 分页,根据偏移量返回对应的数据条数
 export let pagination = offset=>{
     return axios.get(`/page?offset=${offset}`);
+}
+
+// 获取收藏图书
+export let getCollect = ()=>{
+    return axios.get('/collect');
+}
+
+// 收藏图书
+export let cancelCollect = (id,data)=>{
+    return axios.put(`/book?id=${id}`,data);
 }

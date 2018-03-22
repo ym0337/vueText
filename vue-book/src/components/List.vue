@@ -11,6 +11,7 @@
             <p>{{book.bookInfo}}</p>
             <b>价格: {{book.bookPrice}}</b>
             <button @click.stop="remove(book.bookId)">删除</button>
+            <button style="left:80px;">收藏</button>
           </div>        
         </router-link>
       </ul>
@@ -35,7 +36,7 @@ export default {
     let top = scroll.offsetTop;  
     let distance = 0;
     scroll.addEventListener('touchstart',(e)=>{    
-      if(scroll.scrollTop != 0&&scroll.offsetTop == top) return 
+      if(scroll.scrollTop != 0 || scroll.offsetTop != top) return 
       // console.log(e.touches)
       let start = e.touches[0].pageY; // 手指点击开始的位置
       let move = e=>{        
@@ -111,6 +112,9 @@ export default {
     async remove(id) {
       await removeBook(id);
       this.books = this.books.filter(item => item.bookId !== id);
+    },
+    collect(id){
+
     }
   }
 };
