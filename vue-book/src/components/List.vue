@@ -11,7 +11,7 @@
             <p>{{book.bookInfo}}</p>
             <b>价格: {{book.bookPrice}}</b>
             <button @click.stop="remove(book.bookId)">删除</button>
-            <button style="left:80px;">收藏</button>
+            <button style="left:80px;" @click.stop="collect(book.bookId,book)">收藏</button>
           </div>        
         </router-link>
       </ul>
@@ -23,7 +23,7 @@
 <script>
 import Mheader from "@/base/Mheader.vue";
 // import { getBooks, removeBook } from "@/api";
-import { pagination, removeBook } from "@/api";
+import { pagination, removeBook, updateBook } from "@/api";
 export default {
   created() {
     this.getData();
@@ -113,8 +113,10 @@ export default {
       await removeBook(id);
       this.books = this.books.filter(item => item.bookId !== id);
     },
-    collect(id){
-
+    async collect(id,data){
+      if(data.bookCol) return;
+      data.bookCol = true;
+      await updateBook(id,data)
     }
   }
 };

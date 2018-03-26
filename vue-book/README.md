@@ -34,3 +34,7 @@ npm install less less-loader axios vuex
 - 4. config/index.js 中的 productionSourceMap: false
 - 4. npm run build ,把生成的文件放到一个文件夹中
 - 5. 部署服务器
+
+## 启动项目
+- 先在mock文件夹中:node server
+- 然后在根目录: npm run dev

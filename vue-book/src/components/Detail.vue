@@ -15,8 +15,8 @@
         <input type="text" v-model.number="book.bookPrice" id="bookPrice">
       </li>
       <li>
-        <label for="bookCol">是否收藏:</label>
-        <input type="text" v-model.number="book.bookCol" id="bookCol">
+         <label for="bookCover">书的封面链接:</label>
+        <input type="text" v-model="book.bookCover" id="bookCover">
       </li>
       <li>
         <button @click="update">确认修改</button>

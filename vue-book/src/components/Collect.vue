@@ -10,7 +10,7 @@
             <h4>{{book.bookName}}</h4>
             <p>{{book.bookInfo}}</p>
             <b>价格: {{book.bookPrice}}</b>
-            <button @click.stop="update(book.bookId)">取消收藏</button>
+            <button @click.stop="update(book.bookId,book)">取消收藏</button>
           </div>        
         </router-link>
       </ul>
@@ -34,9 +34,11 @@ export default {
     async getCol() {
       this.collectBook = await getCollect();
     },
-    async update(){
-      await updateBook(this.bid,this.book);
-      this.$router.push('/list'); // 修改完跳转页面
+    async update(id,data){
+      // console.log(data)
+      data.bookCol = false;
+      await updateBook(id,data);
+      this.getCol();
     }
   },
   components: { Mheader }
