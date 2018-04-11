@@ -1,1 +1,0 @@
-webpackJsonp([5],{QV70:function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var r={render:function(){var t=this.$createElement;return(this._self._c||t)("div",[this._v("\ncollect\n")])},staticRenderFns:[]};var c=n("VU/8")({data:function(){return{}}},r,!1,function(t){n("t1l0")},"data-v-387d5228",null);e.default=c.exports},t1l0:function(t,e){}});

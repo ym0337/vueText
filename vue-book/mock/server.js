@@ -141,7 +141,7 @@ http.createServer((req,res)=>{
     }
 
     // 读取一个路径
-    /*fs.stat('.'+pathname,function(err,stats){
+    fs.stat('.'+pathname,function(err,stats){
         if(err){
             // res.statusCode = 404;
             // res.end('NOT FOUND')
@@ -156,7 +156,7 @@ http.createServer((req,res)=>{
             }
         }
     })
-*/
+
 }).listen(3000,"localhost",function(){
 
     console.log("开始监听...")});
